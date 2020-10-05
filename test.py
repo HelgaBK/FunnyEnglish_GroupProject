@@ -1,2 +1,3 @@
 import django
-print("Hi")
+import sys
+print(sys.version)
