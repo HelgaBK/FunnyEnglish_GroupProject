@@ -23,4 +23,4 @@ def home(request):
     return render(request,'FunnyEnglish/home.html',context)
 
 def about(request):
-    return render(request,'FunnyEnglish/about.html')
+    return render(request,'FunnyEnglish/about.html',{'title': 'About'})
