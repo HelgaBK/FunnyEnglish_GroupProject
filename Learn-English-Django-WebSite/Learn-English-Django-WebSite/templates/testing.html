@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="jumbotron text-center" style="background-color:#333333">
+        <br>
+        <p style="color:white"><b>Слово у реченні</b> : {{kelime.sentence}}<p>
+        <p style="color:white"><b>Транскрипція</b> : {{kelime.structure}}<p>
+        <form autocomplete="off">
+                <input type="text" name="soru" value={{kelime.engWord}} class="word" readonly>
+                <p>
+                <p><input type="text" name="answer"></p>
+                <button type = "submit" class = "btn btn-outline-success">Відповісти</button>
+        </form> 
+</div>
+
+{% endblock body %}

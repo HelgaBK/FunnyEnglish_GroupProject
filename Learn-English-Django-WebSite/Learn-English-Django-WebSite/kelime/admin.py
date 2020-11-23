@@ -1,11 +1,11 @@
 from django.contrib import admin
-from kelime.models import Kelime, KelimeBilgi, TamamlananKelime
+from kelime.models import Word, WordKnowledge, CompletedWord
 
 # Register your models here.
-admin.site.site_header = 'Learn English Admin Panel'
+admin.site.site_header = 'Funny English Admin Panel'
 
-@admin.register(Kelime)
-class KelimeAdmin(admin.ModelAdmin):
+@admin.register(Word)
+class WordAdmin(admin.ModelAdmin):
 
     list_display = ["engWord", "trWord", "structure"]
     list_display_links = ["engWord", "trWord", "structure"]
@@ -13,24 +13,24 @@ class KelimeAdmin(admin.ModelAdmin):
     search_fields = ["engWord", "trWord", "structure"]
 
     class Meta:
-        model = Kelime
+        model = Word
 
 
-@admin.register(KelimeBilgi)
-class KelimeBilgiAdmin(admin.ModelAdmin):
+@admin.register(WordKnowledge)
+class WordKnowlegeAdmin(admin.ModelAdmin):
     list_display = ["user", "word", "date", "level"]
     list_display_links = ["user", "word", "date", "level"]
     list_filter = ["user", "word", "date", "level"]
 
     class Meta:
-        model = KelimeBilgi
+        model = WordKnowledge
 
 
-@admin.register(TamamlananKelime)
+@admin.register(CompletedWord)
 class TamamlananKelimeAdmin(admin.ModelAdmin):
     list_display = ["user", "word", "date"]
     list_display_links = ["user", "word", "date"]
-    list_filter = ["user", "word", "date"]
+    list_filter = ["user", "word", "date"   ]
 
     class Meta:
-        model = TamamlananKelime
+        model = CompletedWord

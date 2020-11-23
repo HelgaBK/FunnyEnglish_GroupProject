@@ -34,13 +34,13 @@ class Migration(migrations.Migration):
             field=models.CharField(max_length=25, verbose_name='Türkçe'),
         ),
         migrations.CreateModel(
-            name='KelimeBilgi',
+            name='WordKnowledge',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('Date', models.DateTimeField(verbose_name='Sorulacak Tarih')),
                 ('Level', models.IntegerField(verbose_name='Seviyesi')),
                 ('User', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Kullanıcı')),
-                ('Word', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='kelime.Kelime', verbose_name='Kelime')),
+                ('Word', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='kelime.Word', verbose_name='Word')),
             ],
         ),
     ]

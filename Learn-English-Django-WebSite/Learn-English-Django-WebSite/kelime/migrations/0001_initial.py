@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Kelime',
+            name='Word',
             fields=[
                 ('id', models.AutoField(auto_created=True,primary_key=True, serialize=False, verbose_name='ID')),
                 ('engWord', models.CharField(max_length=25)),

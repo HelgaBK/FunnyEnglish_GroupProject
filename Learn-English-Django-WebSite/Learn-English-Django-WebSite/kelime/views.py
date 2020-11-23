@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from kelime.models import Kelime, KelimeBilgi, TamamlananKelime
+from kelime.models import Word, WordKnowledge, CompletedWord
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -20,11 +20,11 @@ def question(request):
     soru = request.GET.get("soru")
     
     if cevap:
-        dogru = Kelime.objects.filter(engWord=soru).first()
+        dogru = Word.objects.filter(engWord=soru).first()
         if dogru.trWord.upper() == cevap.upper():
             messages.success(request, "Вітаємо! Правильна відповідь.")
-            Kayit = KelimeBilgi(user=request.user, word=dogru, level=1, date=timezone.now(
-            ) + timedelta(days=1)+timedelta(hours=3))
+            Kayit = WordKnowledge(user=request.user, word=dogru, level=1, date=timezone.now(
+            ) + timedelta(days=1) + timedelta(hours=3))
             Kayit.save()
             return redirect("question")
         else:
@@ -32,15 +32,15 @@ def question(request):
 
     control = True
     while control:
-        kelime = Kelime.objects.order_by("?").first()
-        inProgressCount = KelimeBilgi.objects.filter(word=kelime, user=request.user).count()
-        doneCount = TamamlananKelime.objects.filter(word=kelime, user=request.user).count()
+        kelime = Word.objects.order_by("?").first()
+        inProgressCount = WordKnowledge.objects.filter(word=kelime, user=request.user).count()
+        doneCount = CompletedWord.objects.filter(word=kelime, user=request.user).count()
         if inProgressCount == 0 and doneCount == 0:
             control = False
 
-        kelimeSayisi = Kelime.objects.all().count()
-        kayitliVeri = KelimeBilgi.objects.filter(user=request.user).count()
-        tamamlananVeri = TamamlananKelime.objects.filter(user=request.user).count()
+        kelimeSayisi = Word.objects.all().count()
+        kayitliVeri = WordKnowledge.objects.filter(user=request.user).count()
+        tamamlananVeri = CompletedWord.objects.filter(user=request.user).count()
         if kelimeSayisi == kayitliVeri+tamamlananVeri:
             messages.success(request, "Вітаємо! Ви знаєте всі слова")
             return redirect("index")
@@ -54,7 +54,7 @@ def question(request):
 @login_required(login_url="user:login")
 def testing(request):
 
-    count = KelimeBilgi.objects.filter(user=request.user).count()
+    count = WordKnowledge.objects.filter(user=request.user).count()
     if count == 0:
         messages.info(request, "Спочатку слід вивчити словник")
         return redirect("index")
@@ -62,8 +62,8 @@ def testing(request):
     cevap = request.GET.get("answer")
     soru = request.GET.get("soru")
     if cevap:
-        dogru = Kelime.objects.filter(engWord=soru).first()
-        kayit = KelimeBilgi.objects.filter(
+        dogru = Word.objects.filter(engWord=soru).first()
+        kayit = WordKnowledge.objects.filter(
             user=request.user, word_id=dogru.id).first()
         if dogru.trWord.upper() == cevap.upper():
             messages.success(request, "Вітаємо! Правильна відповідь!")
@@ -81,7 +81,7 @@ def testing(request):
                 kayit.save()
             elif kayit.level == 4:
                 messages.success(request, "Вітаємо! Ви запам'ятали слово " +soru)
-                Tamamlanan = TamamlananKelime(
+                Tamamlanan = CompletedWord(
                     user=request.user, word=dogru, date=timezone.now())
                 Tamamlanan.save()
                 kayit.delete()
@@ -91,12 +91,12 @@ def testing(request):
             kayit.date = timezone.now() + timedelta(days=1)+timedelta(hours=3)
             kayit.save()
 
-    count = KelimeBilgi.objects.filter(user=request.user).count()
+    count = WordKnowledge.objects.filter(user=request.user).count()
     if count == 0:
         return redirect("index")
 
-    id = KelimeBilgi.objects.filter(user=request.user).order_by("date").first()
-    kelime = Kelime.objects.filter(id=id.word_id).first()
+    id = WordKnowledge.objects.filter(user=request.user).order_by("date").first()
+    kelime = Word.objects.filter(id=id.word_id).first()
     if id.date.toordinal() > datetime.now().toordinal():
         messages.success(request, "Зараз у вас немає слів для перевірки.")
         return redirect("index")
@@ -109,17 +109,17 @@ def statistics(request):
     yearCount = [0, 0, 0]
     yearName = ["", "", ""]
     for i in range(0, 3):
-        yearCount[i] = TamamlananKelime.objects.filter(user=request.user, date__year=int(timezone.now().year)-i).count()
+        yearCount[i] = CompletedWord.objects.filter(user=request.user, date__year=int(timezone.now().year) - i).count()
         yearName[i] = str(int(timezone.now().year)-i)
 
     mountCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     for i in range(0, 12):
-        mountCount[i] = TamamlananKelime.objects.filter(user=request.user, date__year=timezone.now().year, date__month=1+i).count()
+        mountCount[i] = CompletedWord.objects.filter(user=request.user, date__year=timezone.now().year, date__month=1 + i).count()
 
     dayCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     for i in range(0, 30):
-        dayCount[i] = TamamlananKelime.objects.filter(user=request.user, date__year=timezone.now().year, date__month=timezone.now().month, date__day=1+i).count()
+        dayCount[i] = CompletedWord.objects.filter(user=request.user, date__year=timezone.now().year, date__month=timezone.now().month, date__day=1 + i).count()
 
     current = timezone.now()
     current = formats.date_format(current, "DATE_FORMAT")
