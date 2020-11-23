@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">    
+    <title>Learn English</title>
+    <script>
+    window.onload = function () {
+    var options = {
+	title: {text: "Last 3 Years Memorization Numbers"},
+	data: [              
+	{
+		type: "column",
+		dataPoints: [
+			{ label: "{{yearName.0}}",  y: {{yearCount.0}} },
+            { label: "{{yearName.1}}",  y: {{yearCount.1}} },
+            { label: "{{yearName.2}}",  y: {{yearCount.2}} },       
+		]
+	}
+	]
+    };
+$("#yearChartContainer").CanvasJSChart(options);
+    var options = {
+	title: {
+		text:"{{currentYear}}"+ " Monthly Memorization Numbers for the Year"
+	},
+	data: [              
+	{
+		type: "column",
+		dataPoints: [
+			{ label: "Січень",  y: {{mountCount.0}} },
+            { label: "Лютий",  y: {{mountCount.1}} },
+            { label: "Березень",  y: {{mountCount.2}} },
+            { label: "Квітень",  y: {{mountCount.3}} },
+            { label: "Травень",  y: {{mountCount.4}} },
+            { label: "Червень",  y: {{mountCount.5}} },
+            { label: "Липень",  y: {{mountCount.6}} },
+            { label: "Серпень",  y: {{mountCount.7}} },
+            { label: "Вересень",  y: {{mountCount.8}} },
+            { label: "Жовтень",  y: {{mountCount.9}} },
+            { label: "Листопад",  y: {{mountCount.10}} },
+            { label: "Грудень",  y: {{mountCount.11}} },
+		]
+	}
+	]
+};
+$("#monthChartContainer").CanvasJSChart(options);
+    var options = {
+	title: {
+		text: "{{currentYear}}"+" "+"{{currentMonth}}"+" Daily Memorization Numbers for the Month   "
+	},
+	data: [              
+	{
+		type: "column",
+		dataPoints: [
+			{ label: "1 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.0}} },
+            { label: "2 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.1}} },
+            { label: "3 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.2}} },
+            { label: "4 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.3}} },
+            { label: "5 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.4}} },
+            { label: "6 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.5}} },
+            { label: "7 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.6}} },
+            { label: "8 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.7}} },
+            { label: "9 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.8}} },
+            { label: "10 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.9}} },
+            { label: "11 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.10}} },
+            { label: "12 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.11}} },
+            { label: "13 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.12}} },
+            { label: "14 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.13}} },
+            { label: "15 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.14}} },
+            { label: "16 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.15}} },
+            { label: "17 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.16}} },
+            { label: "18 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.17}} },
+            { label: "19 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.18}} },
+            { label: "20 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.19}} },
+            { label: "21 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.20}} },
+            { label: "22 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.21}} },
+            { label: "23 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.22}} },
+            { label: "24 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.23}} },
+            { label: "25 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.24}} },
+            { label: "26 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.25}} },
+            { label: "27 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.26}} },
+            { label: "28 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.27}} },
+            { label: "29 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.28}} },
+            { label: "30 "+"{{currentMonth}}"+" "+"{{currentYear}}",  y: {{dayCount.29}} },       
+		]
+	}
+	]
+};
+$("#dayChartContainer").CanvasJSChart(options);
+}
+</script>
+<style>
+.body{
+        background:gray;
+    } 
+</style>
+</head>
+<body class="body">
+{% include "includes/navbar.html" %}
+<div style = "margin-top : 100px; margin-bottom:100px;" class = "container">
+    <div class="jumbotron text-center" style="background-color:#333333">   
+        <div id="yearChartContainer" style="height: 370px; width: 100%;"></div>
+    </div>
+    <div class="jumbotron text-center" style="background-color:#333333">   
+        <div id="monthChartContainer" style="height: 370px; width: 100%;"></div>
+    </div>
+    <div class="jumbotron text-center" style="background-color:#333333">   
+        <div id="dayChartContainer" style="height: 370px; width: 100%;"></div>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'js/jquery-1.11.1.min.js'%}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.canvasjs.min.js'%}"></script>
+</body>
+</html>

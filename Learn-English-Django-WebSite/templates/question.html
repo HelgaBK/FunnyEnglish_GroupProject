@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="jumbotron text-center" style="background-color:#333333">             
+        <div class="progress">
+        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: {{oran}}%" aria-valuenow="{{kayitliVeri}}" aria-valuemin="0" aria-valuemax="{{kelimeSayisi}}"><b style="color:black">{{oran}}%</b></div>
+        </div>
+        <br>
+        <p style="color:white"><b>Örnek Cümle</b> : {{kelime.sentence}}<p>
+        <p style="color:white"><b>Kelime Yapısı</b> : {{kelime.structure}}<p>                
+        <form autocomplete="off">
+                <input type="text" name="soru" value={{kelime.engWord}} class="word" readonly>
+                <p>
+                <p><input type="text" name="answer"><p>
+                <button type = "submit" class = "btn btn-outline-success">Відповідь</button>       <button type = "submit" class = "btn btn-outline-danger">Soruyu Geç</button>
+        </form> 
+</div>
+
+{% endblock body %}
