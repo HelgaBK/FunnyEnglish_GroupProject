@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>Funny English</title>
+    <script>
+
+
+    </script>
+    <style>
+        .body {
+            background: gray;
+        }
+    </style>
+</head>
+<body class="body">
+<div style="margin-top : 100px; margin-bottom:100px;" class="container">
+    <div class="jumbotron text-center" style="background-color:white">
+        <p style="color:black">{{ theme }}</p>
+        {% for word in words %}
+            <p style="color:gray">{{ word.engWord }} - {{ word.structure }} - {{ word.trWord }}</p>
+        {% endfor %}
+    </div>
+
+    {% include "includes/navbar.html" %}
+    <script type="text/javascript" src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.canvasjs.min.js' %}"></script>
+</body>
+</html>

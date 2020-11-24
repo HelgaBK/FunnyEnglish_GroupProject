@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>Funny English</title>
+    <script>
+
+
+    </script>
+    <style>
+        .body {
+            background: gray;
+        }
+    </style>
+</head>
+<body class="body">
+<div style="margin-top : 100px; margin-bottom:100px;" class="container">
+    {% for theme in themes.values_list %}
+        <div class="jumbotron text-center" style="background-color:white">
+            <a href="{% url 'theme' theme_name=theme.0 %}" style="text-transform: uppercase;">
+                <h2>{{ theme.0 }}</h2>
+                <img src="/static/img/word_themes/{{ theme.1 }}" alt="{{ theme.0 }}" style="max-height: 200pt; max-width: 400pt"/>
+            </a>
+
+        </div>
+    {% endfor %}
+    {% include "includes/navbar.html" %}
+    <script type="text/javascript" src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.canvasjs.min.js' %}"></script>
+</body>
+</html>

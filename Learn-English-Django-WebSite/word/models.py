@@ -5,12 +5,13 @@ from django.db import models
 
 class Theme(models.Model):
     theme = models.CharField(max_length=25, verbose_name="English", unique=True, primary_key= True)
+    img = models.ImageField(upload_to='static/img', height_field=100, width_field=100)
 
 
 class Word(models.Model):
     engWord = models.CharField(max_length=25, verbose_name="English")
     trWord = models.CharField(max_length=25, verbose_name="Ukrainian")
-    word = models.ForeignKey(Theme, on_delete=models.CASCADE, verbose_name="Theme", default=None)
+    word = models.ForeignKey(Theme, to_field='theme', on_delete=models.CASCADE, verbose_name="Theme", default=None)
     sentence = models.TextField(verbose_name="Sentence")
     structure = models.CharField(max_length=25, verbose_name="Structure")
 

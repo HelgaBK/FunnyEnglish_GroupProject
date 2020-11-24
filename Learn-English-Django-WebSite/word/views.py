@@ -33,7 +33,6 @@ def question(request):
     while control:
         word = Word.objects.order_by("?").first()
         theme = Theme.objects.all()
-        themes = map(lambda x: x*x, theme)
         inProgressCount = WordKnowledge.objects.filter(word=word, user=request.user).count()
         doneCount = CompletedWord.objects.filter(word=word, user=request.user).count()
         if inProgressCount == 0 and doneCount == 0:
@@ -135,19 +134,13 @@ def statistics(request):
 
 
 @login_required(login_url="user:login")
-def words(request):
-    yearCount = [0, 0, 0]
-    yearName = ["", "", ""]
+def themes(request):
+    themes = Theme.objects.all()
+    return render(request, "themes.html", {"themes": themes})
 
-    mountCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-    dayCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    current = timezone.now()
-    current = formats.date_format(current, "DATE_FORMAT")
-    current = current.split()
-    currentMonth = current[1]
-    currentYear = current[2]
-    return render(request, "statistics.html",
-                  {"yearCount": yearCount, "yearName": yearName, "mountCount": mountCount, "dayCount": dayCount,
-                   "currentMonth": currentMonth, "currentYear": currentYear})
+@login_required(login_url="user:login")
+def theme(request, theme_name):
+    words = Word.objects.filter(word_id=theme_name).all()
+    return render(request, "theme.html", {"theme": theme_name, "words": words})
+
