@@ -2,9 +2,15 @@ from django.db import models
 
 # Create your models here.
 
+
+class Theme(models.Model):
+    theme = models.CharField(max_length=25, verbose_name="English", unique=True, primary_key= True)
+
+
 class Word(models.Model):
     engWord = models.CharField(max_length=25, verbose_name="English")
     trWord = models.CharField(max_length=25, verbose_name="Ukrainian")
+    word = models.ForeignKey(Theme, on_delete=models.CASCADE, verbose_name="Theme", default=None)
     sentence = models.TextField(verbose_name="Sentence")
     structure = models.CharField(max_length=25, verbose_name="Structure")
 

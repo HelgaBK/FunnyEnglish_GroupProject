@@ -1,5 +1,5 @@
 from django.contrib import admin
-from kelime.models import Word, WordKnowledge, CompletedWord
+from word.models import Word, WordKnowledge, CompletedWord
 
 # Register your models here.
 admin.site.site_header = 'Funny English Admin Panel'
