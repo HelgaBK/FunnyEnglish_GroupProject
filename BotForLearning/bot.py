@@ -11,7 +11,7 @@ bot = telebot.TeleBot(config.TOKEN)
 def start_(message):
     if len( words ) == 0:
         bot.send_message( message.chat.id,
-                          'Ви спробували спробували угадати всі наявні слова. \nГра почнеться з початку.' )
+                          'Ви спробували угадати всі наявні слова. \nГра почнеться з початку.' )
         anything.clear()
         for y in words__:
             words.append( y )
