@@ -1,10 +1,37 @@
 from django.shortcuts import render, redirect
-from word.models import Word, WordKnowledge, CompletedWord, Theme
+from word.models import Word, WordKnowledge, CompletedWord, Theme, QuizModel
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import datetime, timedelta
 from django.utils import formats
+
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.core.paginator import Paginator
+
+lst = []
+answers = QuizModel.objects.all()
+anslist = []
+for i in answers:
+    anslist.append(i.answer)
+
+def result(request):
+    score = 0
+    for i in range(len(lst)):
+        if lst[i] == anslist[i]:
+            score += 1
+    return render(request, 'result.html', {'score': score, 'lst': lst})
+
+
+def save_ans(request):
+    ans = request.GET['ans']
+    lst.append(ans)
+
+
+# def welcome(request):
+#     lst.clear()
+#     return render(request, 'welcome.html')
 
 
 # Create your views here.
@@ -147,12 +174,12 @@ def theme(request, theme_name):
 @login_required(login_url="user:login")
 def quiz(request):
     return render(request, 'quiz.html')
-    cevap = request.GET.get("answer")
+    ans = request.GET.get("answer")
     soru = request.GET.get("soru")
 
-    if cevap:
+    if ans:
         dogru = Word.objects.filter(engWord=soru).first()
-        if dogru.trWord.upper() == cevap.upper():
+        if dogru.trWord.upper() == ans.upper():
             messages.success(request, "Вітаємо! Правильна відповідь.")
             Kayit = WordKnowledge(user=request.user, word=dogru, level=1, date=timezone.now(
             ) + timedelta(days=1) + timedelta(hours=3))

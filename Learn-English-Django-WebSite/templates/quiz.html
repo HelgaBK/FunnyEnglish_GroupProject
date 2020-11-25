@@ -1,22 +1,50 @@
-
-{% extends "layout.html" %}
-
-{% block body %}
-
-<div class="jumbotron text-center" style="background-color:#2a4d69 ">
-        <div class="progress">
-        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: {{oran}}%; background-color: #63ace5 !important" aria-valuenow="{{kayitliVeri}}" aria-valuemin="0" aria-valuemax="{{kelimeSayisi}}"><b style="color:#003366">{{oran}}%</b></div>
-        </div>
-        <br>
-        <p style="color:white"><b>Тема</b> : {{word.word_id}}<p>
-        <p style="color:white"><b>Слово у реченні</b> : {{word.sentence}}<p>
-        <p style="color:white"><b>Транскрипція</b> : {{word.structure}}<p>
-        <form autocomplete="off">
-                <input type="text" name="question" value={{word.engWord}} class="word" readonly>
-                <p>
-                <p><input type="text" name="answer"><p>
-                <button type = "submit" class = "btn btn-outline-success">Відповідь</button>       <button type = "submit" class = "btn btn-outline-danger">Пропустити питання</button>
-        </form>
-</div>
-
-{% endblock body %}
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Leaan AJAX with Django</title>
+                {% load static %}
+                <link rel="stylesheet" href="{% static 'style.css' %}">
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+                <script src="{% static 'quiz.js' %}">
+                </script>
+            </head>
+            <body>
+                <center><h1>Question {{ questions.end_index }} of  {{count}}</h1></center>
+                <div class="col-lg-8 border border-success p-4 m-4 mx-auto">
+                            {% for i in questions%}
+                            <h1>{{i.question}}</h1>
+                            <form>
+                                <div class="radio">
+                                <label><input type="radio" name="name"  id="option1" value="{{i.option1}}">{{i.option1}} </label> 
+                                </div>
+                                <div class="radio">
+                                <label > <input type="radio" name="name"  id="option2" value="{{i.option2}}">{{i.option2}}</label>
+                              </div>
+                              <div class="radio">
+                                <label ><input type="radio" name="name" id="option3" value="{{i.option3}}">{{i.option3}}</label>
+                              </div>
+                                <div class="radio">
+                                <label ><input type="radio" name="name"  id="option4" value="{{i.option4}}">{{i.option4}} </label>
+                            </div>
+                        </form>
+                            {%endfor%}
+                            <div class="form-group">
+                                <button class="btn  btn-success" id="save_ans">Submit Answer</button>
+                            </div>
+                            <div class="paginetor">
+                              <div class="form-group">
+                                {%  if questions.has_next %}
+                                <a href="?page={{ questions.next_page_number }}"><button class="btn form-control btn-primary" id="submitAnswer">Next</button></a>
+                              {% else %}
+                               <a href="/result/"><button class="btn form-control btn-success" id="submitAnswer">Submit Quiz</button></a>  
+                              {% endif %} 
+                              </div>
+                             </div>  
+                </div>
+                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>    
+            </body>
+            </html>       

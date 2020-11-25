@@ -1,10 +1,11 @@
 from django.db import models
 
+
 # Create your models here.
 
 
 class Theme(models.Model):
-    theme = models.CharField(max_length=25, verbose_name="English", unique=True, primary_key= True)
+    theme = models.CharField(max_length=25, verbose_name="English", unique=True, primary_key=True)
     img = models.ImageField(upload_to='static/img', height_field=100, width_field=100)
 
 
@@ -30,3 +31,12 @@ class CompletedWord(models.Model):
     word = models.ForeignKey(Word, on_delete=models.CASCADE, verbose_name="Word")
     user = models.ForeignKey("auth.User", on_delete=models.CASCADE, verbose_name="User")
     date = models.DateTimeField(blank=True, null=True, verbose_name="Memorization Date")
+
+
+class QuizModel(models.Model):
+    question = models.TextField()
+    option1 = models.CharField(max_length=100)
+    option2 = models.CharField(max_length=100)
+    option3 = models.CharField(max_length=100)
+    option4 = models.CharField(max_length=100)
+    answer = models.CharField(max_length=100)
