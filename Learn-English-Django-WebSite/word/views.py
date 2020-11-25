@@ -15,12 +15,12 @@ def index(request):
 
 @login_required(login_url="user:login")
 def question(request):
-    cevap = request.GET.get("answer")
-    soru = request.GET.get("soru")
+    answer = request.GET.get("answer")
+    question = request.GET.get("soru")
 
-    if cevap:
-        dogru = Word.objects.filter(engWord=soru).first()
-        if dogru.trWord.upper() == cevap.upper():
+    if answer:
+        dogru = Word.objects.filter(engWord=question).first()
+        if dogru.trWord.upper() == answer.upper():
             messages.success(request, "Вітаємо! Правильна відповідь.")
             Kayit = WordKnowledge(user=request.user, word=dogru, level=1, date=timezone.now(
             ) + timedelta(days=1) + timedelta(hours=3))
@@ -143,4 +143,43 @@ def themes(request):
 def theme(request, theme_name):
     words = Word.objects.filter(word_id=theme_name).all()
     return render(request, "theme.html", {"theme": theme_name, "words": words})
+
+@login_required(login_url="user:login")
+def quiz(request):
+    return render(request, 'quiz.html')
+    cevap = request.GET.get("answer")
+    soru = request.GET.get("soru")
+
+    if cevap:
+        dogru = Word.objects.filter(engWord=soru).first()
+        if dogru.trWord.upper() == cevap.upper():
+            messages.success(request, "Вітаємо! Правильна відповідь.")
+            Kayit = WordKnowledge(user=request.user, word=dogru, level=1, date=timezone.now(
+            ) + timedelta(days=1) + timedelta(hours=3))
+            Kayit.save()
+            return redirect("question")
+        else:
+            messages.info(request, "Ой! Неправильна відповідь.")
+
+    control = True
+    while control:
+        word = Word.objects.order_by("?").first()
+        theme = Theme.objects.all()
+        inProgressCount = WordKnowledge.objects.filter(word=word, user=request.user).count()
+        doneCount = CompletedWord.objects.filter(word=word, user=request.user).count()
+        if inProgressCount == 0 and doneCount == 0:
+            control = False
+
+        kelimeSayisi = Word.objects.all().count()
+        kayitliVeri = WordKnowledge.objects.filter(user=request.user).count()
+        tamamlananVeri = CompletedWord.objects.filter(user=request.user).count()
+        if kelimeSayisi == kayitliVeri + tamamlananVeri:
+            messages.success(request, "Вітаємо! Ви знаєте всі слова")
+            return redirect("index")
+
+        oran = ((kayitliVeri + tamamlananVeri) * 100) / kelimeSayisi
+        oran = int(oran)
+
+    return render(request, "question.html",
+                  {"word": word, "oran": oran, "kelimeSayisi": kelimeSayisi, "kayitliVeri": kayitliVeri})
 
