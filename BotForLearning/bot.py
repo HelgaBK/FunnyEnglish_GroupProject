@@ -3,22 +3,10 @@ import config
 import time
 import random
 
-bot = telebot.TeleBot( config.TOKEN )
-global words
-global w
-global anything
-global count_
-words__ = ['flower', 'dog', 'cat', 'text', 'apple', 'lollipop', 'cake', 'desk', 'boy']
-words = []
-for y in words__:
-    words.append( y )
+from  decorate_ import theme_
+from  init_data_ import *
 
-w = 0
-anything = []
-count_ = [0]
-word = []
-words_taken = []
-pass_ = [0]
+bot = telebot.TeleBot(config.TOKEN)
 
 def start_(message):
     if len( words ) == 0:
@@ -34,7 +22,8 @@ def start_(message):
 
     word_taken = words[index]
     words.pop( index )
-    word.append( word_taken )
+
+    word.append( word_taken[1] )
     anything.clear()
     f = ''
     for i in word[0]:
@@ -42,16 +31,18 @@ def start_(message):
         f += "➖"
     #bot.send_message( message.chat.id, word[0] )
     count_.clear()
-    count_.append(len(word[0]))
+    count_.append(len(set(word[0])) * 2 - len(set(word[0])) // 3)
     count_life = '⭐️' * int(count_[0])
+
     bot.send_message( message.chat.id,
-                      'Залишилось ' + str(len_) + ' слів.\nВи почали гру \nспробуйте вгадати слово.' )
-    bot.send_message( message.chat.id, 'Слово:' + f + '\n Кількість спроб:' + count_life )
+                      theme_(str(word_taken[0])) + '\nТема слова: ' + str(word_taken[0]) +'\n\nЗалишилось слів: ' + str(len_) + ' \nВи почали гру, спробуйте вгадати слово.' )
+    bot.send_message( message.chat.id, 'Слово:' + f + '\nКількість спроб, що залишилось:\n' + count_life )
 
 @bot.message_handler(commands=['start'])
 
 @bot.message_handler(content_types=['text'])
-def lalala(message):
+def init_funk(message):
+
     msg = message.text.lower()
     if msg == '/start':
         pass_.clear()
@@ -83,9 +74,9 @@ def lalala(message):
                 pass_.clear()
                 pass_.append(1)
             else:
-                bot.send_message(message.chat.id, m)
+                #bot.send_message(message.chat.id, m)
                 count_life = '⭐️' * count_[0]
-                bot.send_message( message.chat.id, 'Слово:' + m + '\n Кількість спроб:' + count_life)
+                bot.send_message( message.chat.id, 'Слово: ' + m + '\n\nКількість спроб, що залишилось:\n' + count_life)
         else:
             if count_[0] == 0:
                 bot.send_message( message.chat.id, 'Ви не вгадали слово: ' + word[0] +'.\nНатисніть /start, щоб почати гру з початку')
@@ -98,7 +89,7 @@ def lalala(message):
                         m += "➖"
                     else:
                         m += i
-                bot.send_message( message.chat.id, 'Помилка\n' +'\nСлово:' + m + '\n Кількість спроб:' + count_life)
+                bot.send_message( message.chat.id, '🔴Помилка🔴\n' +'\nСлово: ' + m + '\nКількість спроб, що залишилось:\n' + count_life)
 
 # RUN
 
