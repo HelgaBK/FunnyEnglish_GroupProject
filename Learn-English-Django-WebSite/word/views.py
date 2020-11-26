@@ -153,6 +153,8 @@ def theme(request, theme_name):
 @login_required(login_url="user:login")
 def quiz(request):
 
+    #words=Word.objects.filter(img=None).delete()
+
     if request.GET.get("mybtn1"):
         messages.success(request, "Button 1 pressed")
     elif request.GET.get("mybtn2"):
@@ -163,9 +165,3 @@ def quiz(request):
         messages.success(request, "Button 4 pressed")
 
     return render(request, 'quiz.html')
-    count = WordKnowledge.objects.filter(user=request.user).count()
-    if count == 0:
-        messages.info(request, "Спочатку слід вивчити словник")
-        return redirect("index")
-    cevap = request.GET.get("answer")
-    soru = request.GET.get("soru")
