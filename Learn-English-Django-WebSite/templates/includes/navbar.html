@@ -4,10 +4,9 @@
             aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="{% url 'index' %}"><div class = "style1">Funny English</div></a>
+    <a class="navbar-brand" href="{% url 'index' %}">Funny English</a>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-<<<<<<< HEAD
             <li class="nav-item active"><a class="nav-link" href="{% url 'themes' %}">Словник</a></li>
             <li class="nav-item active"><a class="nav-link" href="{% url 'question' %}">Навчання</a></li>
             <li class="nav-item active"><a class="nav-link" href="{% url 'testing' %}">Повторення</a></li>
@@ -19,22 +18,9 @@
                 <li class="nav-item active"><a class="nav-link" href="https://t.me/Organise_For_Learning_Bot">Бот</a></li>
                 <li class="nav-item active"><a class="nav-link" href="/admin">Admin</a></li>
                 <li class="nav-item active"><a class="nav-link" href="{% url 'user:logout' %}">Вихід</a></li>
-=======
-
-            <li class="nav-item active"><a class="nav-link" href="{% url 'themes' %}"><div class = "style1">Теми</div></a></li>
-            <li class="nav-item active"><a class="nav-link"  href="{% url 'question' %}"><div class = "style1">Навчання</div></a></li>
-            <li class="nav-item active"><a class="nav-link"  href="{% url 'testing' %}"><div class = "style1">Тестування</div></a></li>
-            <li class="nav-item active"><a class="nav-link"  href="{% url 'statistics' %}"><div class = "style1">Статистика</div></a></li>
-            <li class="nav-item active"><a class="nav-link" href="{% url 'quiz' %}"><div class = "style1">Вікторини</div></a></li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            {% if request.user.is_authenticated %}
-                <li class="nav-item active"><a class="nav-link" href="/admin"><div class = "light">Admin</div></a></li>
-                <li class="nav-item active"><a class="nav-link" href="{% url 'user:logout' %}"><div class = "light">Вихід</div></a></li>
->>>>>>> fcd772ce0180ce92d1e2b24bdbadb2953c741a9a
             {% else %}
-                <li class="nav-item active"><a class="nav-link" href="{% url 'user:login' %}"><div class = "light">Вхід</div></a></li>
-                <li class="nav-item active"><a class="nav-link" href="{% url 'user:register' %}"><div class = "light">Реєстрація</div></a></li>
+                <li class="nav-item active"><a class="nav-link" href="{% url 'user:login' %}">Вхід</a></li>
+                <li class="nav-item active"><a class="nav-link" href="{% url 'user:register' %}">Реєстрація</a></li>
             {% endif %}
         </ul>
     </div>

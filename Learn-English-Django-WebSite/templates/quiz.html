@@ -2,7 +2,6 @@
 return redirect("index")
 {% block body %}
 
-<<<<<<< HEAD
 
     <div class="jumbotron text-center" style="background-color:#333333">
         <br>
@@ -13,47 +12,6 @@ return redirect("index")
                      style="visibility:visible; max-width: 300pt; max-height: 400pt; color: white">
 
                 <p id="word_question" style="visibility: hidden; color:white">{{ question }}</p>
-=======
-    <div class="jumbotron text-center" style="background-color:#13547a; border-radius: 30px ">
-        <h1 style="color: #8fcafe">Question {{ questions.end_index }} of {{ count }}</h1>
-        <div class="col-lg-8 border border-success p-4 m-4 mx-auto">
-            {% for i in questions %}
-                <h1>{{ i.question }}</h1>
-                <form>
-                    <div class="radio">
-                        <label><input type="radio" name="name" id="option1" value="{{ i.option1 }}">{{ i.option1 }}
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label> <input type="radio" name="name" id="option2" value="{{ i.option2 }}">{{ i.option2 }}
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" name="name" id="option3" value="{{ i.option3 }}">{{ i.option3 }}
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" name="name" id="option4" value="{{ i.option4 }}">{{ i.option4 }}
-                        </label>
-                    </div>
-                </form>
-            {% endfor %}
-            <div class="form-group">
-                <button class="btn  btn-success" id="save_ans">Submit Answer</button>
-            </div>
-            <div class="paginetor">
-                <div class="form-group">
-                    {% if questions.has_next %}
-                        <a href="?page={{ questions.next_page_number }}">
-                            <button class="btn form-control btn-primary" id="submitAnswer">Next</button>
-                        </a>
-                    {% else %}
-                        <a href="/result/">
-                            <button class="btn form-control btn-success" id="submitAnswer">Submit Quiz</button>
-                        </a>
-                    {% endif %}
-                </div>
->>>>>>> fcd772ce0180ce92d1e2b24bdbadb2953c741a9a
             </div>
             <p>
                 <input type="submit" class="btn btn-primary" value={{ btn1 }} name="mybtn1">

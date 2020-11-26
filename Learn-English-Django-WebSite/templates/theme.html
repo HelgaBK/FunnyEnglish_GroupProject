@@ -2,7 +2,6 @@
 {% load static %}
 <html lang="en">
 <head>
-        <link rel="stylesheet" type="text/css" href="{%  static 'css/style.css'  %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,7 +11,6 @@
 
 
     </script>
-<<<<<<< HEAD
     <style>
         .body {
             background: gray;
@@ -32,29 +30,21 @@
             height: 100%;
         }
     </style>
-=======
->>>>>>> fcd772ce0180ce92d1e2b24bdbadb2953c741a9a
 </head>
 <body class="body">
 <div id="iframe-container iframe" style="margin-top : 100px; margin-bottom:100px;" class="container">
     <div class="jumbotron text-center" style="background-color:white">
-<<<<<<< HEAD
         <p style="color:black">{{ theme }}</p>
         <div id="iframe-container iframe">
         <iframe width="560" height="315" src={{ link }} frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
         </div>
-=======
-        <p style="color:#310f91">{{ theme }}</p>
->>>>>>> fcd772ce0180ce92d1e2b24bdbadb2953c741a9a
         {% for word in words %}
-            <p style="color:#222222"><div class="theme">{{ word.engWord }} — {{ word.structure }} — {{ word.trWord }} </div>
-             <p></p>
-            <img src="/static/img/words/{{ word.img }}" style="max-height: 150pt; max-width: 150pt"/>
-                <br> </br>
+            <p style="color:gray">{{ word.engWord }} - {{ word.structure }} - {{ word.trWord }}</p>
+            <img src="/static/img/words/{{ word.img }}" style="max-height: 50pt; max-width: 50pt"/>
         {% endfor %}
-
+    </div>
 
     {% include "includes/navbar.html" %}
     <script type="text/javascript" src="{% static 'js/jquery-1.11.1.min.js' %}"></script>

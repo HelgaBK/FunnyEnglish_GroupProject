@@ -2,7 +2,6 @@
 {% load static %}
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="{%  static 'css/style.css'  %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -26,7 +25,7 @@
 $("#yearChartContainer").CanvasJSChart(options);
     var options = {
 	title: {
-		text:"{{currentYear}}"+ "Monthly Memorization Numbers for the Year"
+		text:"{{currentYear}}"+ " Monthly Memorization Numbers for the Year"
 	},
 	data: [              
 	{
@@ -96,7 +95,7 @@ $("#dayChartContainer").CanvasJSChart(options);
 </script>
 <style>
 .body{
-        background: linear-gradient(#13547a, #80d0c7)
+        background:gray;
     } 
 </style>
 </head>
