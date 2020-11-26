@@ -15,12 +15,31 @@
         .body {
             background: gray;
         }
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body class="body">
-<div style="margin-top : 100px; margin-bottom:100px;" class="container">
+<div id="iframe-container iframe" style="margin-top : 100px; margin-bottom:100px;" class="container">
     <div class="jumbotron text-center" style="background-color:white">
         <p style="color:black">{{ theme }}</p>
+        <div id="iframe-container iframe">
+        <iframe width="560" height="315" src={{ link }} frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
         {% for word in words %}
             <p style="color:gray">{{ word.engWord }} - {{ word.structure }} - {{ word.trWord }}</p>
             <img src="/static/img/words/{{ word.img }}" style="max-height: 50pt; max-width: 50pt"/>

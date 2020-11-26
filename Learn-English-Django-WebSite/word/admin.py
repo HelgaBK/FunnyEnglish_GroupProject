@@ -1,5 +1,5 @@
 from django.contrib import admin
-from word.models import Word, WordKnowledge, CompletedWord, QuizModel, Theme
+from word.models import Word, WordKnowledge, CompletedWord, Theme
 
 # Register your models here.
 admin.site.site_header = 'Funny English Admin Panel'
@@ -9,7 +9,7 @@ admin.site.site_header = 'Funny English Admin Panel'
 
 @admin.register(Theme)
 class ThemeAdmin(admin.ModelAdmin):
-    list_display = ["theme", "img"]
+    list_display = ["theme", "img", "themeLink"]
     list_display_links = ["theme"]
     list_filter = ["theme"]
     search_fields = ["theme"]
@@ -20,7 +20,7 @@ class ThemeAdmin(admin.ModelAdmin):
 
 @admin.register(Word)
 class WordAdmin(admin.ModelAdmin):
-    list_display = ["engWord", "trWord", "structure", "sentence", "img", "word_id"]
+    list_display = ["engWord", "trWord", "structure", "sentence", "img", "word_id", "brainteaser"]
     list_display_links = ["engWord", "trWord", "word_id"]
     list_filter = ["word_id"]
     search_fields = ["engWord", "trWord"]
@@ -49,8 +49,8 @@ class WordKnowlegeAdmin(admin.ModelAdmin):
 #         model = CompletedWord
 
 
-@admin.register(QuizModel)
-class QuizModelAdmin(admin.ModelAdmin):
-    list_display = ["question", "option1_id", "option2_id", "option3_id", "option4_id", "answer_id"]
-    list_display_links = ["question"]
-    list_filter = ["question", "answer_id"]
+# @admin.register(QuizModel)
+# class QuizModelAdmin(admin.ModelAdmin):
+#     list_display = ["question", "option1_id", "option2_id", "option3_id", "option4_id", "answer_id"]
+#     list_display_links = ["question"]
+#     list_filter = ["question", "answer_id"]

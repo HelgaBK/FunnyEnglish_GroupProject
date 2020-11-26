@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from word.models import Word, WordKnowledge, CompletedWord, Theme, QuizModel
+from word.models import Word, WordKnowledge, CompletedWord, Theme
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -11,10 +11,12 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 
 lst = []
-answers = QuizModel.objects.all()
+# answers = QuizModel.objects.all()
 anslist = []
-for i in answers:
-    anslist.append(i.answer)
+
+
+# for i in answers:
+#     anslist.append(i.answer)
 
 def result(request):
     score = 0
@@ -78,7 +80,8 @@ def question(request):
         oran = int(oran)
 
     return render(request, "question.html",
-                  {"word": word,"theme":theme[1], "oran": oran, "kelimeSayisi": kelimeSayisi, "kayitliVeri": kayitliVeri})
+                  {"word": word, "theme": theme[1], "oran": oran, "kelimeSayisi": kelimeSayisi,
+                   "kayitliVeri": kayitliVeri})
 
 
 @login_required(login_url="user:login")
@@ -172,11 +175,29 @@ def themes(request):
 def theme(request, theme_name):
     words = Word.objects.filter(word_id=theme_name).all()
     theme = Theme.objects.filter(id=theme_name)[:1].get()
-    return render(request, "theme.html", {"theme": theme.theme.upper(), "words": words})
+    return render(request, "theme.html", {"theme": theme.theme.upper(), "link": theme.themeLink, "words": words})
 
 
 @login_required(login_url="user:login")
-def quiz(request):
+def quizzes(request):
+    themes = Theme.objects.all()
+    return render(request, "quizzes.html", {"themes": themes})
+
+
+@login_required(login_url="user:login")
+def quizTheme(request, theme_name):
+    words = Word.objects.filter(word_id=theme_name, brainteaser=None).count()
+    allWords = Word.objects.filter(word_id=theme_name).count()
+    types = ["audial", "visual"]
+    if allWords - words > 3:
+        types.append("kinsetetyk")
+    print(types)
+    theme = Theme.objects.filter(id=theme_name)[:1].get()
+    return render(request, "quizTheme.html", {"quiz_url": theme_name, "theme": theme.theme.upper(), "types": types})
+
+
+@login_required(login_url="user:login")
+def quiz(request, theme_name, person_type):
     return render(request, 'quiz.html')
     ans = request.GET.get("answer")
     soru = request.GET.get("soru")
@@ -213,4 +234,3 @@ def quiz(request):
 
     return render(request, "quiz.html",
                   {"word": word, "oran": oran, "kelimeSayisi": kelimeSayisi, "kayitliVeri": kayitliVeri})
-

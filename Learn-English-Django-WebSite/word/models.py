@@ -7,6 +7,7 @@ from django.db import models
 class Theme(models.Model):
     theme = models.CharField(max_length=25, verbose_name="English", unique=True)
     img = models.ImageField(upload_to='static/img')
+    themeLink = models.CharField(max_length=50, verbose_name="Link", default="https://youtu.be/75p-N9YKqNo")
 
 
 class Word(models.Model):
@@ -16,6 +17,7 @@ class Word(models.Model):
     sentence = models.TextField(verbose_name="Sentence")
     structure = models.CharField(max_length=25, verbose_name="Structure")
     img = models.ImageField(upload_to='static/img/words')
+    brainteaser = models.TextField(verbose_name="Brainteaser", default=None, blank=True, null=True)
 
     def __str__(self):
         return self.engWord
@@ -33,16 +35,3 @@ class CompletedWord(models.Model):
     user = models.ForeignKey("auth.User", on_delete=models.CASCADE, verbose_name="User")
     date = models.DateTimeField(blank=True, null=True, verbose_name="Memorization Date")
 
-
-class QuizModel(models.Model):
-    question = models.TextField()
-    option1 = models.ForeignKey(Word, on_delete=models.CASCADE, verbose_name="Choice1",
-                                related_name="option1")
-    option2 = models.ForeignKey(Word, on_delete=models.CASCADE, verbose_name="Choice2",
-                                related_name="option2")
-    option3 = models.ForeignKey(Word, on_delete=models.CASCADE, verbose_name="Choice3",
-                                related_name="option3")
-    option4 = models.ForeignKey(Word, on_delete=models.CASCADE, verbose_name="Choice4",
-                                related_name="option4")
-    answer = models.ForeignKey(Word, on_delete=models.CASCADE, verbose_name="Answer",
-                               related_name="answer")
