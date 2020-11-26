@@ -1,21 +1,17 @@
+{% extends "layout.html" %}        return redirect("index")
 
-{% extends "layout.html" %}
 
 {% block body %}
 
-<div class="jumbotron text-center" style="background-color:#2a4d69 ">
-        <div class="progress">
-        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: {{oran}}%; background-color: #63ace5 !important" aria-valuenow="{{kayitliVeri}}" aria-valuemin="0" aria-valuemax="{{kelimeSayisi}}"><b style="color:#003366">{{oran}}%</b></div>
-        </div>
+<div class="jumbotron text-center" style="background-color:#333333">
         <br>
-        <p style="color:white"><b>Тема</b> : {{word.word_id}}<p>
-        <p style="color:white"><b>Слово у реченні</b> : {{word.sentence}}<p>
-        <p style="color:white"><b>Транскрипція</b> : {{word.structure}}<p>
         <form autocomplete="off">
-                <input type="text" name="question" value={{word.engWord}} class="word" readonly>
-                <p>
-                <p><input type="text" name="answer"><p>
-                <button type = "submit" class = "btn btn-outline-success">Відповідь</button>       <button type = "submit" class = "btn btn-outline-danger">Пропустити питання</button>
+            <p>
+                <input type="submit" class="btn btn-primary" value="Click1" name="mybtn1">
+                <input type="submit" class="btn btn-primary" value="Click2" name="mybtn2">
+            <p>
+                <input type="submit" class="btn btn-primary" value="Click3" name="mybtn3">
+                <input type="submit" class="btn btn-primary" value="Click4" name="mybtn4">
         </form>
 </div>
 
