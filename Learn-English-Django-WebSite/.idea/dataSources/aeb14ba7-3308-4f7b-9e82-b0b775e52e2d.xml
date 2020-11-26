@@ -556,7 +556,6 @@ model</ColNames>
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="127" parent="20" name="engWord">
       <Position>2</Position>
@@ -583,20 +582,19 @@ model</ColNames>
       <DataType>varchar(25)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="132" parent="20" name="word_word_word_id_cd500d6c">
+    <column id="132" parent="20" name="img">
+      <Position>7</Position>
+      <DataType>varchar(100)|0s</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <index id="133" parent="20" name="word_word_word_id_cd500d6c">
       <ColNames>word_id</ColNames>
       <ColumnCollations></ColumnCollations>
     </index>
-    <key id="133" parent="20">
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
     <foreign-key id="134" parent="20">
       <ColNames>word_id</ColNames>
       <RefTableName>word_theme</RefTableName>
       <RefColNames>theme</RefColNames>
-      <Deferrable>1</Deferrable>
-      <InitiallyDeferred>1</InitiallyDeferred>
     </foreign-key>
     <column id="135" parent="21" name="id">
       <Position>1</Position>

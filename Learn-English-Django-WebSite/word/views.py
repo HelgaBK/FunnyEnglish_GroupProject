@@ -152,9 +152,11 @@ def theme(request, theme_name):
 
 @login_required(login_url="user:login")
 def quiz(request):
+    words=Word.objects.exclude(img=None)
+    if len(words)<4:
+        return
 
-    #words=Word.objects.filter(img=None).delete()
-
+  #  res=list(words.all())
     if request.GET.get("mybtn1"):
         messages.success(request, "Button 1 pressed")
     elif request.GET.get("mybtn2"):

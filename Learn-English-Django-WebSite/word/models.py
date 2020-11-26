@@ -14,7 +14,7 @@ class Word(models.Model):
     word = models.ForeignKey(Theme, to_field='theme', on_delete=models.CASCADE, verbose_name="Theme", default=None)
     sentence = models.TextField(verbose_name="Sentence")
     structure = models.CharField(max_length=25, verbose_name="Structure")
-    img = models.ImageField(upload_to='static/img/word_img', height_field=100, width_field=100)
+    img = models.ImageField(upload_to='static/img/word_img', null=True, blank=True)
 
     def __str__(self):
         return self.engWord
