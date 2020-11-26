@@ -171,7 +171,9 @@ def themes(request):
 @login_required(login_url="user:login")
 def theme(request, theme_name):
     words = Word.objects.filter(word_id=theme_name).all()
-    return render(request, "theme.html", {"theme": theme_name, "words": words})
+    theme = Theme.objects.filter(id=theme_name)[:1].get()
+    return render(request, "theme.html", {"theme": theme.theme.upper(), "words": words})
+
 
 @login_required(login_url="user:login")
 def quiz(request):
