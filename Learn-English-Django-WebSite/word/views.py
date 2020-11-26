@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import datetime, timedelta
+import random
 from django.utils import formats
 
 
@@ -17,11 +18,6 @@ def index(request):
 def question(request):
     answer = request.GET.get("answer")
     question = request.GET.get("soru")
-    BTest=request.GET.get('mybtn')
-    STest=request.GET
-    if BTest:
-        pass
-
 
     if answer:
         dogru = Word.objects.filter(engWord=question).first()
@@ -150,20 +146,35 @@ def theme(request, theme_name):
     words = Word.objects.filter(word_id=theme_name).all()
     return render(request, "theme.html", {"theme": theme_name, "words": words})
 
+
 @login_required(login_url="user:login")
 def quiz(request):
-    words=Word.objects.exclude(img=None)
-    if len(words)<4:
+    words = Word.objects.exclude(img=None)
+    if len(words) < 1:
         return
+    next_word=words.order_by('?')[0]
+    # a=Word.objects.order_by('?').all()[0].engWord
+    options = [next_word.engWord] + [Word.objects.order_by('?')[i].engWord for i in range(3)]
+    random.shuffle(options)
 
-  #  res=list(words.all())
+    inf=request.GET
+    strike = False
     if request.GET.get("mybtn1"):
-        messages.success(request, "Button 1 pressed")
+        strike = strike or request.GET.get("mybtn1") == next_word.engWord
     elif request.GET.get("mybtn2"):
-        messages.success(request, "Button 2 pressed")
+        strike = strike or request.GET.get("mybtn2") == next_word.engWord
     elif request.GET.get("mybtn3"):
-        messages.success(request, "Button 3 pressed")
+        strike = strike or request.GET.get("mybtn3") == next_word.engWord
     elif request.GET.get("mybtn4"):
-        messages.success(request, "Button 4 pressed")
-
-    return render(request, 'quiz.html')
+        strike = strike or request.GET.get("mybtn4") == next_word.engWord
+    if strike:
+        messages.success(request, "КРАСАВА")
+    else:
+        messages.info(request, 'Іди вчися далі')
+    d = "/static/img/word_img/" + next_word.img.url
+    return render(request, 'quiz.html', {'btn1': options[0],
+                                         'btn2': options[1],
+                                         'btn3': options[2],
+                                         'btn4': options[3],
+                                         'image': next_word.img.url
+                                         })
