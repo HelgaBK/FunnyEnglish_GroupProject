@@ -2,19 +2,13 @@
 {% load static %}
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/style.css'  %}">
     <style>
-    .word{
-        font-size: 40px;
-        color: #000000;
-        background-image: url(static/img/index5.jpg) !important;;
-        text-align:center;
-        width:250px;
-        border-radius:20px;
-        border:2px solid #cccccc;
-    }
+
     .body{
-        background-image: url(static/img/index5.jpg) !important;
-    } 
+        background: linear-gradient(#13547a, #80d0c7);
+
+    }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,6 +34,8 @@
         {% endblock body %}
         
     </div>
+
+
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
 </body>

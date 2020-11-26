@@ -2,8 +2,8 @@
 
 {% block body %}
 
-    <div class="jumbotron text-center" style="background-color:#2a4d69 ">
-        <h1>Question {{ questions.end_index }} of {{ count }}</h1>
+    <div class="jumbotron text-center" style="background-color:#13547a; border-radius: 30px ">
+        <h1 style="color: #8fcafe">Question {{ questions.end_index }} of {{ count }}</h1>
         <div class="col-lg-8 border border-success p-4 m-4 mx-auto">
             {% for i in questions %}
                 <h1>{{ i.question }}</h1>
