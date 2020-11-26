@@ -152,6 +152,16 @@ def theme(request, theme_name):
 
 @login_required(login_url="user:login")
 def quiz(request):
+
+    if request.GET.get("mybtn1"):
+        messages.success(request, "Button 1 pressed")
+    elif request.GET.get("mybtn2"):
+        messages.success(request, "Button 2 pressed")
+    elif request.GET.get("mybtn3"):
+        messages.success(request, "Button 3 pressed")
+    elif request.GET.get("mybtn4"):
+        messages.success(request, "Button 4 pressed")
+
     return render(request, 'quiz.html')
     count = WordKnowledge.objects.filter(user=request.user).count()
     if count == 0:
