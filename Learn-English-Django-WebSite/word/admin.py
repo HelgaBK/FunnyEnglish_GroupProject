@@ -1,8 +1,10 @@
 from django.contrib import admin
-from word.models import Word, WordKnowledge, CompletedWord
+from word.models import Word, WordKnowledge, CompletedWord, QuizModel
 
 # Register your models here.
 admin.site.site_header = 'Funny English Admin Panel'
+
+# admin.site.register(QuizModel)
 
 @admin.register(Word)
 class WordAdmin(admin.ModelAdmin):
@@ -34,3 +36,9 @@ class TamamlananKelimeAdmin(admin.ModelAdmin):
 
     class Meta:
         model = CompletedWord
+
+#@admin.register(QuizModel)
+#class QuizModelAdmin(admin.ModelAdmin):
+#    list_display = ['','','']
+#    list_display_links = ['','','']
+#    list_filter = ['','','']

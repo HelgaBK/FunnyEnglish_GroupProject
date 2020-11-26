@@ -22,8 +22,8 @@
     {% for theme in themes.values_list %}
         <div class="jumbotron text-center" style="background-color:white">
             <a href="{% url 'theme' theme_name=theme.0 %}" style="text-transform: uppercase;">
-                <h2>{{ theme.0 }}</h2>
-                <img src="/static/img/word_themes/{{ theme.1 }}" alt="{{ theme.0 }}" style="max-height: 200pt; max-width: 400pt"/>
+                <h2>{{ theme.1 }}</h2>
+                <img src="/static/img/word_themes/{{ theme.2 }}" alt="{{ theme.1 }}" style="max-height: 200pt; max-width: 400pt"/>
             </a>
 
         </div>
