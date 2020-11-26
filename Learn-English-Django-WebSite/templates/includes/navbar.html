@@ -15,6 +15,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if request.user.is_authenticated %}
+                <li class="nav-item active"><a class="nav-link" href="https://t.me/Organise_For_Learning_Bot">Бот</a></li>
                 <li class="nav-item active"><a class="nav-link" href="/admin">Admin</a></li>
                 <li class="nav-item active"><a class="nav-link" href="{% url 'user:logout' %}">Вихід</a></li>
             {% else %}

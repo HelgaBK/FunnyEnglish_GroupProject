@@ -9,6 +9,7 @@ from django.db import connection
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator
+import random
 
 lst = []
 # answers = QuizModel.objects.all()
@@ -190,7 +191,7 @@ def quizTheme(request, theme_name):
     allWords = Word.objects.filter(word_id=theme_name).count()
     types = ["audial", "visual"]
     if allWords - words > 3:
-        types.append("kinsetetyk")
+        types.append("kinesthetic")
     print(types)
     theme = Theme.objects.filter(id=theme_name)[:1].get()
     return render(request, "quizTheme.html", {"quiz_url": theme_name, "theme": theme.theme.upper(), "types": types})
@@ -198,39 +199,29 @@ def quizTheme(request, theme_name):
 
 @login_required(login_url="user:login")
 def quiz(request, theme_name, person_type):
-    return render(request, 'quiz.html')
-    ans = request.GET.get("answer")
-    soru = request.GET.get("soru")
+    words = Word.objects.filter(word_id=theme_name).all()
+    if len(words) < 1:
+        return
+    next_word = words.order_by('?')[0]
 
-    if ans:
-        dogru = Word.objects.filter(engWord=soru).first()
-        if dogru.trWord.upper() == ans.upper():
-            messages.success(request, "Вітаємо! Правильна відповідь.")
-            Kayit = WordKnowledge(user=request.user, word=dogru, level=1, date=timezone.now(
-            ) + timedelta(days=1) + timedelta(hours=3))
-            Kayit.save()
-            return redirect("question")
-        else:
-            messages.info(request, "Ой! Неправильна відповідь.")
+    options = [next_word.engWord] + [words.order_by('?')[i].engWord for i in range(3)]
+    random.shuffle(options)
 
-    control = True
-    while control:
-        word = Word.objects.order_by().first()
-        theme = Theme.objects.all()
-        inProgressCount = WordKnowledge.objects.filter(word=word, user=request.user).count()
-        doneCount = CompletedWord.objects.filter(word=word, user=request.user).count()
-        if inProgressCount == 0 and doneCount == 0:
-            control = False
+    inf = request.GET
+    choosed_answer = request.GET.get("mybtn1") or request.GET.get("mybtn2") or request.GET.get(
+        "mybtn3") or request.GET.get("mybtn4")
+    if choosed_answer == request.GET.get("word"):
+        messages.success(request, "КРАСАВА!")
+    else:
+        messages.info(request, 'Іди вчися далі')
 
-        kelimeSayisi = Word.objects.all().count()
-        kayitliVeri = WordKnowledge.objects.filter(user=request.user).count()
-        tamamlananVeri = CompletedWord.objects.filter(user=request.user).count()
-        if kelimeSayisi == kayitliVeri + tamamlananVeri:
-            messages.success(request, "Вітаємо! Ви знаєте всі слова")
-            return redirect("index")
-
-        oran = ((kayitliVeri + tamamlananVeri) * 100) / kelimeSayisi
-        oran = int(oran)
-
-    return render(request, "quiz.html",
-                  {"word": word, "oran": oran, "kelimeSayisi": kelimeSayisi, "kayitliVeri": kayitliVeri})
+    print((choosed_answer, request.GET.get("word"), request.GET.get("mybtn1"), request.GET.get("mybtn2"), request.GET.get("mybtn3"),
+           request.GET.get("mybtn4")))
+    return render(request, 'quiz.html', {'btn1': options[0],
+                                         'btn2': options[1],
+                                         'btn3': options[2],
+                                         'btn4': options[3],
+                                         'image': next_word.img.url,
+                                         'engword':next_word.engWord,
+                                         'person_type': person_type
+                                         })
