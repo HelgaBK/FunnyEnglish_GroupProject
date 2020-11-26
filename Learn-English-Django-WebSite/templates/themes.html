@@ -2,6 +2,7 @@
 {% load static %}
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/style.css'  %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -13,7 +14,7 @@
     </script>
     <style>
         .body {
-            background: gray;
+            background: linear-gradient(#13547a, #80d0c7);
         }
     </style>
 </head>
@@ -21,7 +22,8 @@
 <div style="margin-top : 100px; margin-bottom:100px;" class="container">
     {% for theme in themes.values_list %}
         <div class="jumbotron text-center" style="background-color:white">
-            <a href="{% url 'theme' theme_name=theme.0 %}" style="text-transform: uppercase;">
+            <a class = "themes"
+               href="{% url 'theme' theme_name=theme.0 %}" style="text-transform: uppercase;">
                 <h2 style="">{{ theme.1 }}</h2>
                 <img src="/static/img/word_themes/{{ theme.2 }}" alt="{{ theme.1 }}"
                      style="max-height: 200pt; max-width: 400pt"/>

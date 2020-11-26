@@ -2,19 +2,21 @@
 {% load static %}
 
 {% block body %}
-
-<div class="jumbotron text-center" style="background-color: black; opacity:70%">
-        <h3 style="color:white"><b>Ласкаво просимо на сайт з вивчення англійської!</b></h3>
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/style.css'  %}">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
+<div class="jumbotron text-center" style="background: #104767; opacity:70%">
+        <div class="container"><h3 style="color:#ffffff; opacity:100%; font-family: 'Quicksand', sans-serif;"><b> <div id="testbutton"></div> </b></h3></div>
         <br>
-        <p style="color:white">
+        <p style="color:#ffffff; opacity:100%; font-family: 'Quicksand', sans-serif;">
         {% if request.user.is_authenticated %}
-                Hello, {{request.user.username}}!
+                Привіт, {{request.user.username}}!
         {% else %}
-                Ви не ввійшли до системи
+                Ви не увійшли до системи
         {% endif %}
         </p>
 
         <img src="{% static 'img/index3.jpg' %}" class="img-fluid" alt="Girl in a jacket">
 </div>
+
 
 {% endblock body %}
