@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+return redirect("index")
+{% block body %}
+
+
+    <div class="jumbotron text-center" style="background-color:#333333">
+        <br>
+        <form autocomplete="off">
+            <input id="eng_word" type="hidden" value={{ word.trWord }} name="word">
+            <div>
+                <p>
+                <button type="button" id='goBtn' class="btn btn-primary">Прослухати слово</button>
+                <p>
+                <button type="button" id='goBtnSent' class="btn btn-primary">Прослухати речення</button>
+                <p>
+                <button type="button" id='stopBtn' class="btn btn-primary">Зупинити</button>
+                <p>
+            </div>
+            <p>
+                <input type="submit" class="btn btn-primary" value={{ btn1.trWord }} name="mybtn1">
+                <input type="submit" class="btn btn-primary" value={{ btn2.trWord }} name="mybtn2">
+            <p>
+                <input type="submit" class="btn btn-primary" value={{ btn3.trWord }} name="mybtn3">
+                <input type="submit" class="btn btn-primary" value={{ btn4.trWord }} name="mybtn4">
+        </form>
+    </div>
+    <script>
+        var synth = window.speechSynthesis;
+        var txtInput = document.getElementById("eng_word")
+
+        goBtn.addEventListener('click', () => {
+            var msg = new SpeechSynthesisUtterance("{{ word.engWord }}");
+            msg.rate = 0.7;
+            msg.voice = speechSynthesis.getVoices().filter(function (voice) {
+                return voice.name == 'Google UK English Male';
+            })[0];
+            synth.speak(msg);
+        });
+
+        goBtnSent.addEventListener('click', () => {
+            var msg = new SpeechSynthesisUtterance("{{ word.sentence }}");
+            msg.rate = 0.7;
+            msg.voice = speechSynthesis.getVoices().filter(function (voice) {
+                return voice.name == 'Google UK English Male';
+            })[0];
+            synth.speak(msg);
+        });
+
+        stopBtn.addEventListener('click', () => {
+            synth.cancel();
+        });
+
+    </script>
+{% endblock body %}

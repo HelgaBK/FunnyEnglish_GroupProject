@@ -199,29 +199,30 @@ def quizTheme(request, theme_name):
 
 @login_required(login_url="user:login")
 def quiz(request, theme_name, person_type):
+    page = person_type + '.html'
     words = Word.objects.filter(word_id=theme_name).all()
     if len(words) < 1:
         return
+    if person_type == "kinesthetic":
+        words = words.exclude(brainteaser__isnull=True)
     next_word = words.order_by('?')[0]
 
-    options = [next_word.engWord] + [words.order_by('?')[i].engWord for i in range(3)]
+    options = [next_word] + [words.exclude(engWord=next_word.engWord).order_by('?')[i] for i in range(3)]
     random.shuffle(options)
 
-    inf = request.GET
     choosed_answer = request.GET.get("mybtn1") or request.GET.get("mybtn2") or request.GET.get(
         "mybtn3") or request.GET.get("mybtn4")
+
     if choosed_answer == request.GET.get("word"):
         messages.success(request, "КРАСАВА!")
     else:
         messages.info(request, 'Іди вчися далі')
 
-    print((choosed_answer, request.GET.get("word"), request.GET.get("mybtn1"), request.GET.get("mybtn2"), request.GET.get("mybtn3"),
+    print((choosed_answer, request.GET.get("word"), request.GET.get("mybtn1"), request.GET.get("mybtn2"),
+           request.GET.get("mybtn3"),
            request.GET.get("mybtn4")))
-    return render(request, 'quiz.html', {'btn1': options[0],
-                                         'btn2': options[1],
-                                         'btn3': options[2],
-                                         'btn4': options[3],
-                                         'image': next_word.img.url,
-                                         'engword':next_word.engWord,
-                                         'person_type': person_type
-                                         })
+
+    return render(request, page,
+                  {'btn1': options[0], 'btn2': options[1], 'btn3': options[2], 'btn4': options[3],
+                   'word': next_word, 'person_type': person_type
+                   })

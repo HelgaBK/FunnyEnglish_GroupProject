@@ -6,12 +6,11 @@ return redirect("index")
     <div class="jumbotron text-center" style="background-color:#333333">
         <br>
         <form autocomplete="off">
-            <input type="hidden" value={{ engword }} name="word">
+            <input type="hidden" value={{ word.engWord }} name="word">
             <div>
-                <img id="word_image" src="/static/img/words{{ image }}"
+                <img id="word_image" src="/static/img/words{{ word.img.url }}"
                      style="visibility:visible; max-width: 300pt; max-height: 400pt; color: white">
-
-                <p id="word_question" style="visibility: hidden; color:white">{{ question }}</p>
+                <p>
             </div>
             <p>
                 <input type="submit" class="btn btn-primary" value={{ btn1 }} name="mybtn1">
@@ -21,10 +20,4 @@ return redirect("index")
                 <input type="submit" class="btn btn-primary" value={{ btn4 }} name="mybtn4">
         </form>
     </div>
-    <script>
-        document.getElementById("word_image").onerror = function () {
-            this.remove();
-            document.getElementById("word_question").style.visibility = "visible"
-        }
-    </script>
 {% endblock body %}
