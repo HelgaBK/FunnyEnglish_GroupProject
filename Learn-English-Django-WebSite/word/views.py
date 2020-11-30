@@ -232,11 +232,12 @@ def quiz(request, theme_name, person_type):
     choosed_answer = request.GET.get("mybtn1") or request.GET.get("mybtn2") or request.GET.get(
         "mybtn3") or request.GET.get("mybtn4")
 
-    if choosed_answer == request.GET.get("word"):
-        messages.success(request, "Правильна відповідь!")
-        guessed_words += 1
-    else:
-        messages.info(request, 'Відповідь неправильна!')
+    if cur_word!=0:
+        if choosed_answer == request.GET.get("word"):
+            messages.success(request, "Правильна відповідь!")
+            guessed_words += 1
+        else:
+            messages.info(request, 'Відповідь неправильна!')
     print("Correct answer =", image_word, "| callstack: ", inspect.currentframe())
 # print((choosed_answer, request.GET.get("word"), request.GET.get("mybtn1"), request.GET.get("mybtn2"),
 #        request.GET.get("mybtn3"),
