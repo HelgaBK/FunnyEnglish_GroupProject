@@ -258,4 +258,7 @@ def quiz(request, theme_name, person_type):
 @login_required(login_url="user:login")
 def quiz_result(request):
     #, theme_name, person_type
-    return render(request)
+    return render(request,'quizResult.html',
+                  {'guessed_words' : guessed_words,
+                   'total_words' : total_words
+                   })
