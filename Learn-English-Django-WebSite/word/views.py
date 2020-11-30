@@ -209,8 +209,10 @@ def quiz(request, theme_name, person_type):
     if person_type == "kinesthetic":
         words = words.exclude(brainteaser__isnull=True)
 
-    options = words[:4]
+    options = list(words)[:4]
     image_word = options[0]
+
+#    print(type(options), "| callstack: ", inspect.currentframe())
 
     random.shuffle(options)
 
@@ -221,7 +223,7 @@ def quiz(request, theme_name, person_type):
         messages.success(request, "Правильна відповідь!")
     else:
         messages.info(request, 'Відповідь неправильна!')
-    print("Correct answer =", image_word, "| callstack : ", inspect.currentframe())
+    print("Correct answer =", image_word, "| callstack: ", inspect.currentframe())
 # print((choosed_answer, request.GET.get("word"), request.GET.get("mybtn1"), request.GET.get("mybtn2"),
 #        request.GET.get("mybtn3"),
 #        request.GET.get("mybtn4")))
