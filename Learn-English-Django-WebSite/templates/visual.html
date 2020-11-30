@@ -3,6 +3,10 @@ return redirect("index")
 {% block body %}
 
 
+<div class="progress">
+  <div class="progress-bar"  style="width: {{progress_val}}%" role="progressbar"></div>
+</div>
+
     <div class="jumbotron text-center" style="background-color:#333333">
         <br>
         <form autocomplete="off">

@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="jumbotron text-center" style="background-color:#2a4d69 ">
+        <br>
+        <form autocomplete="off">
+                <input type="text" value={{word.result}} class="word" readonly>
+        </form>
+</div>
+
+{% endblock body %}

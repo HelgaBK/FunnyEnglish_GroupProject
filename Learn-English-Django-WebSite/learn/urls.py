@@ -30,4 +30,6 @@ urlpatterns = [
     path('user/', include("user.urls")),
     path('themes/', views.themes, name="themes"),
     re_path(r'^theme/(?P<theme_name>.+)$', views.theme, name="theme"),
+    #path('quizzes/<int:theme_name>/<person_type>/result', views.quiz_result, name='quizResult')
+    path('result/', views.quiz_result, name='quizResult')
 ]
