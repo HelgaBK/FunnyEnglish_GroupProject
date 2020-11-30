@@ -195,8 +195,7 @@ total_words = 5
 def quizTheme(request, theme_name):
 
     global cur_word, guessed_words
-    cur_word = -1
-    guessed_words = 0
+    guessed_words = cur_word = -1
 
     words = Word.objects.filter(word_id=theme_name, brainteaser=None).count()
     allWords = Word.objects.filter(word_id=theme_name).count()
@@ -213,12 +212,7 @@ def quiz(request, theme_name, person_type):
     global cur_word, guessed_words
     cur_word += 1
     if cur_word >= total_words:
-        #'quizzes/' + str(theme_name)+'/'
-        #q= person_type + '/' + 'result'
-        #f=request.get_full_path()
-        #FUCKING PIECE OF SHIT
-        #WHY IT DOES'T WORK. FUCK FUCK FUCK
-        return redirect('/result','/result.html')
+        return redirect('/result')
 
 
     page = person_type + '.html'
@@ -234,7 +228,6 @@ def quiz(request, theme_name, person_type):
 
     random.shuffle(options)
 
-    print("progress_val =",cur_word/total_words*100.,inspect.currentframe())
 
     choosed_answer = request.GET.get("mybtn1") or request.GET.get("mybtn2") or request.GET.get(
         "mybtn3") or request.GET.get("mybtn4")
@@ -249,10 +242,21 @@ def quiz(request, theme_name, person_type):
 #        request.GET.get("mybtn3"),
 #        request.GET.get("mybtn4")))
 
+    print('cur_word =',cur_word,"   |   ",inspect.currentframe())
+    print('guessed_words =', guessed_words, "   |   ",inspect.currentframe())
+    print('total_words =', total_words, "   |   ",inspect.currentframe())
+    print("progress_val =",cur_word/total_words*100.,"   |   ",inspect.currentframe())
+    if request.method == 'POST':
+        print("Request method = POST","   |   ",inspect.currentframe())
+    else:
+        print("Request method = GET","   |   ",inspect.currentframe())
+
     return render(request, page,
                   {'btn1': options[0], 'btn2': options[1], 'btn3': options[2], 'btn4': options[3],
                    'word': image_word, 'person_type': person_type,
-                   'progress_val': int(cur_word/total_words*100.)
+                   'progress_val': int(cur_word/total_words*100.),
+                   'cur_word' : cur_word,
+                   'total_words' : total_words
                    })
 
 @login_required(login_url="user:login")
