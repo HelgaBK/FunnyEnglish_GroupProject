@@ -1,3 +1,5 @@
+import inspect
+
 from django.shortcuts import render, redirect
 from word.models import Word, WordKnowledge, CompletedWord, Theme
 from django.contrib import messages
@@ -200,29 +202,33 @@ def quizTheme(request, theme_name):
 @login_required(login_url="user:login")
 def quiz(request, theme_name, person_type):
     page = person_type + '.html'
-    words = Word.objects.filter(word_id=theme_name).all()
+    words = Word.objects.filter(word_id=theme_name).order_by('?')
     if len(words) < 1:
         return
+
     if person_type == "kinesthetic":
         words = words.exclude(brainteaser__isnull=True)
-    next_word = words.order_by('?')[0]
 
-    options = [next_word] + [words.exclude(engWord=next_word.engWord).order_by('?')[i] for i in range(3)]
+
+ #   rand_words=words.exclude(engWord=next_word.engWord).order_by('?')
+    options = words[:4]
+    image_word = options[0]
+
     random.shuffle(options)
 
     choosed_answer = request.GET.get("mybtn1") or request.GET.get("mybtn2") or request.GET.get(
         "mybtn3") or request.GET.get("mybtn4")
 
     if choosed_answer == request.GET.get("word"):
-        messages.success(request, "КРАСАВА!")
+        messages.success(request, "Правильна відповідь!")
     else:
-        messages.info(request, 'Іди вчися далі')
-
-    print((choosed_answer, request.GET.get("word"), request.GET.get("mybtn1"), request.GET.get("mybtn2"),
-           request.GET.get("mybtn3"),
-           request.GET.get("mybtn4")))
+        messages.info(request, 'Відповідь неправильна!')
+    print("Correct answer =", image_word, "| callstack : ", inspect.currentframe())
+   # print((choosed_answer, request.GET.get("word"), request.GET.get("mybtn1"), request.GET.get("mybtn2"),
+   #        request.GET.get("mybtn3"),
+   #        request.GET.get("mybtn4")))
 
     return render(request, page,
                   {'btn1': options[0], 'btn2': options[1], 'btn3': options[2], 'btn4': options[3],
-                   'word': next_word, 'person_type': person_type
+                   'word': image_word, 'person_type': person_type
                    })
