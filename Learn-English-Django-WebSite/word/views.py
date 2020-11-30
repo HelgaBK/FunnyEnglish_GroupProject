@@ -180,22 +180,23 @@ def theme(request, theme_name):
     theme = Theme.objects.filter(id=theme_name)[:1].get()
     return render(request, "theme.html", {"theme": theme.theme.upper(), "link": theme.themeLink, "words": words})
 
-
-@login_required(login_url="user:login")
-def quizzes(request):
-    themes = Theme.objects.all()
-    return render(request, "quizzes.html", {"themes": themes})
-
-
+#quiz data
 cur_word = -1
 guessed_words = 0
 total_words = 5
 
 @login_required(login_url="user:login")
-def quizTheme(request, theme_name):
+def quizzes(request):
 
     global cur_word, guessed_words
-    guessed_words = cur_word = -1
+    guessed_words = 0
+    cur_word = -1
+
+    themes = Theme.objects.all()
+    return render(request, "quizzes.html", {"themes": themes})
+
+@login_required(login_url="user:login")
+def quizTheme(request, theme_name):
 
     words = Word.objects.filter(word_id=theme_name, brainteaser=None).count()
     allWords = Word.objects.filter(word_id=theme_name).count()
