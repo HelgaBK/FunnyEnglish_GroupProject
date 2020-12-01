@@ -3,14 +3,16 @@
 
 {% block body %}
 
+<link rel="stylesheet" type="text/css" href="{%  static 'css/style.css'  %}">
+
 <div class="jumbotron text-center" style="background-color: black; opacity:70%">
-        <h3 style="color:white"><b>Ласкаво просимо на сайт з вивчення англійської!</b></h3>
+        <h3 style="color:white"><div id = "testbutton"></div></h3>
         <br>
         <p style="color:white">
         {% if request.user.is_authenticated %}
-                Hello, {{request.user.username}}!
+                Привіт, {{request.user.username}}!
         {% else %}
-                Ви не ввійшли до системи
+                Ви не увійшли до системи
         {% endif %}
         </p>
 

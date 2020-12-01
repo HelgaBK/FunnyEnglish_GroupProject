@@ -1,26 +1,28 @@
+
 <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
             aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="{% url 'index' %}">Funny English</a>
+<a class="navbar-brand" href="{% url 'index' %}"><div class = "style1" style="width: 230px">Funny English</div></a>
+
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active"><a class="nav-link" href="{% url 'themes' %}">Словник</a></li>
-            <li class="nav-item active"><a class="nav-link" href="{% url 'question' %}">Навчання</a></li>
-            <li class="nav-item active"><a class="nav-link" href="{% url 'testing' %}">Повторення</a></li>
-            <li class="nav-item active"><a class="nav-link" href="{% url 'quizzes' %}">Вікторини</a></li>
-            <li class="nav-item active"><a class="nav-link" href="{% url 'statistics' %}">Статистика</a></li>
+            <li class="nav-item active"><a class="nav-link" href="{% url 'themes' %}"><div class = "style1">Словник</div></a></li>
+            <li class="nav-item active"><a class="nav-link" href="{% url 'question' %}"><div class = "style1">Навчання</div></a></li>
+            <li class="nav-item active"><a class="nav-link" href="{% url 'testing' %}"><div class = "style1">Повторення</div></a></li>
+            <li class="nav-item active"><a class="nav-link" href="{% url 'quizzes' %}"><div class = "style1">Вікторини</div></a></li>
+            <li class="nav-item active"><a class="nav-link" href="{% url 'statistics' %}"><div class = "style1">Статистика</div></a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if request.user.is_authenticated %}
-                <li class="nav-item active"><a class="nav-link" href="https://t.me/Organise_For_Learning_Bot">Бот</a></li>
-                <li class="nav-item active"><a class="nav-link" href="/admin">Admin</a></li>
-                <li class="nav-item active"><a class="nav-link" href="{% url 'user:logout' %}">Вихід</a></li>
+                <li class="nav-item active"><a class="nav-link" href="https://t.me/Organise_For_Learning_Bot"><div class = ""><div class = "style1" style="width: 115px">Бот</div></div></a></li>
+                <li class="nav-item active"><a class="nav-link" href="/admin"><div class = "style1" style="width: 115px">Admin</div></a></li>
+                <li class="nav-item active"><a class="nav-link" href="{% url 'user:logout' %}"><div class = "style1" style="width: 115px">Вихід</div></a></li>
             {% else %}
-                <li class="nav-item active"><a class="nav-link" href="{% url 'user:login' %}">Вхід</a></li>
-                <li class="nav-item active"><a class="nav-link" href="{% url 'user:register' %}">Реєстрація</a></li>
+                <li class="nav-item active"><a class="nav-link" href="{% url 'user:login' %}"><div class = "style1" style="width: 115px">Вхід</div></a></li>
+                <li class="nav-item active"><a class="nav-link" href="{% url 'user:register' %}"><div class = "style1" style="width: 180px">Реєстрація</div></a></li>
             {% endif %}
         </ul>
     </div>

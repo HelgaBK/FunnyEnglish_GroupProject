@@ -2,6 +2,7 @@
 {% load static %}
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/style.css'  %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,12 +13,9 @@
 
     </script>
     <style>
-        .body {
-            background: gray;
-        }
 
         .button {
-            background-color: #4CAF50; /* Green */
+            background-color: white; /* Green */
             border: none;
             color: white;
             padding: 16px 32px;
@@ -30,33 +28,27 @@
             cursor: pointer;
         }
 
-        .button4 {
-            background-color: white;
-            color: black;
-            border: 2px solid #e7e7e7;
-        }
 
-        .button4:hover {
-            background-color: #e7e7e7;
-        }
+
+
     </style>
 </head>
 <body class="body">
-<div style="margin-top : 100px; margin-bottom:100px;" class="container">
-    <h5>Вислів про те, що всі люди різні, не просто фраза. Кожен з нас по-різному сприймає інформацію і реагує на неї.
+<div style="margin-top : 100px; margin-bottom:100px; color: white; " class="container">
+    <h5 style="line-height: 30px" >Вислів про те, що всі люди різні, не просто фраза. Кожен з нас по-різному сприймає інформацію і реагує на неї.
         Але якщо реакції – це більше до визначення інтровертів і екстравертів, то в залежності від способу сприйняття ми
         ділимося на візуалів, аудіалів і кінестетиків. Це три основних типи мислення людини і дуже важливо враховувати
-        цей фактор, особливо викладачам у процесі навчання дитини.
-    </h5><h5>Три типи людей – три способи мислення. Кожен з них кардинально відрізняється один від одного. Якщо коротко, то
+        цей фактор, особливо викладачам у процесі навчання дитини. <br><br>
+Три типи людей – три способи мислення. Кожен з них кардинально відрізняється один від одного. Якщо коротко, то
         візуал сприймає інформацію картинками, аудіал – звуками, а кінестетик – емоціями.
     </h5>
     {% for theme in themes.values_list %}
-        <div class="jumbotron text-center" style="background-image: url('static/img/word_themes/{{ theme.2 }}') ">
+        <div class="jumbotron text-center" style="background-image: url('static/img/word_themes/{{ theme.2 }}') " >
 
             <a href="{% url 'quizTheme' theme_name=theme.0 %}" style="text-transform: uppercase;">
-                <button class="button button4"
-                        style="background-image: '/static/img/word_themes/{{ theme.2 }}' !important;">
-                    <h4>{{ theme.1.upper }}</h4>
+                <button class="light"
+                        style="height: 100px; width: 400px; background-image: '/static/img/word_themes/{{ theme.2 }}' !important;">
+                    <h4 style="text-align: center; height: 15px; font-size: 30px" >{{ theme.1.upper }}</h4>
                 </button>
             </a>
 

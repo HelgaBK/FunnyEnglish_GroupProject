@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/style.css'  %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
@@ -12,9 +13,7 @@
 
     </script>
     <style>
-        .body {
-            background: gray;
-        }
+
         .iframe-container {
             position: relative;
             width: 100%;
@@ -41,7 +40,8 @@
                 allowfullscreen></iframe>
         </div>
         {% for word in words %}
-            <p style="color:gray">{{ word.engWord }} - {{ word.structure }} - {{ word.trWord }}</p>
+            <p style="color:#222222"><div class="theme">{{ word.engWord }} — {{ word.structure }} — {{ word.trWord }} </div>
+            <br>
             <img src="/static/img/words/{{ word.img }}" style="max-height: 50pt; max-width: 50pt"/>
         {% endfor %}
     </div>
